@@ -350,8 +350,8 @@ class ProfilePicture extends Component {
     });
 
     //this.debug("[scalrenderImageeImage]", {
-      data: { ...this.state.imagesData }
-    });
+    //   data: { ...this.state.imagesData }
+    // });
   }
 
   renderMessages() {
