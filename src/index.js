@@ -54,7 +54,7 @@ class ProfilePicture extends Component {
 
   componentWillMount() {
     this.registerImageEvents();
-    this.debug("[componentWillMount]");
+    //this.debug("[componentWillMount]");
   }
 
   componentWillUnmount() {
@@ -64,7 +64,7 @@ class ProfilePicture extends Component {
     ["mouseup", "touchend"].forEach(eName =>
       window.removeEventListener(eName, this.onMovingEnd, false)
     );
-    this.debug("[componentWillUnmount]");
+    //this.debug("[componentWillUnmount]");
   }
 
   resetState() {
@@ -89,7 +89,7 @@ class ProfilePicture extends Component {
       })
     );
 
-    this.debug("[resetState]");
+    //this.debug("[resetState]");
   }
 
   setStatus(status = Status.EMPTY) {
@@ -98,7 +98,7 @@ class ProfilePicture extends Component {
     state.status = status;
     this.setState(state);
     this.props.onStatusChange.call(this, status);
-    this.debug("[setStatus]", { status: status });
+    //this.debug("[setStatus]", { status: status });
   }
 
   dragStart(e) {
@@ -114,12 +114,12 @@ class ProfilePicture extends Component {
     this.draggingPosition.y =
       this.draggingPosition.clientY - this.state.imageData.imageY;
 
-    this.debug("[dragStart]", { draggingPosition: this.draggingPosition });
+    //this.debug("[dragStart]", { draggingPosition: this.draggingPosition });
   }
 
   onMovingEnd() {
     this.dragging = false;
-    this.debug("[mouseup, touchend]");
+    //this.debug("[mouseup, touchend]");
   }
 
   onMoving(e) {
@@ -153,7 +153,7 @@ class ProfilePicture extends Component {
       if (refresh) {
         state.imageData = imageData;
         this.setState(state, this.renderImage.bind(this));
-        this.debug("[mousemove, touchstart]", { ...imageData, refresh });
+        //this.debug("[mousemove, touchstart]", { ...imageData, refresh });
       }
     }
   }
@@ -178,40 +178,40 @@ class ProfilePicture extends Component {
 
   handleDragOut() {
     this.setStatus(Status.EMPTY);
-    this.debug("[handleDragOut]");
+    //this.debug("[handleDragOut]");
   }
 
   handleDragOver() {
     this.setStatus(Status.DRAGOVER);
-    this.debug("[handleDragOver]");
+    //this.debug("[handleDragOver]");
   }
 
   handleZoom(event) {
     this.scaleImage(Number(event.target.value));
     this.props.onZoomChange.call(this, { zoom: event.target.value });
-    this.debug("[handleZoom]", { zoom: event.target.value });
+    //this.debug("[handleZoom]", { zoom: event.target.value });
   }
 
   handleFileChange(event) {
     this.readFile(event.target.files[0]);
     event.target.value = "";
-    this.debug("[handleFileChange]", { file: event.target.files[0] });
+    //this.debug("[handleFileChange]", { file: event.target.files[0] });
   }
 
   handleTapToSelect() {
     this.inputFileRef.current.click();
-    this.debug("[handleTapToSelect]");
+    //this.debug("[handleTapToSelect]");
   }
 
   handleOnDrop(file) {
     this.readFile(file);
-    this.debug("[handleOnDrop]", { file });
+    //this.debug("[handleOnDrop]", { file });
   }
 
   handleRemove() {
     this.resetState();
     this.props.onImageRemoved.call(this);
-    this.debug("[onImageRemoved]");
+    //this.debug("[onImageRemoved]");
   }
 
   readFile(file) {
@@ -220,12 +220,12 @@ class ProfilePicture extends Component {
     fileReader(file, {
       onLoadStart: () => {
         this.props.onImageLoading.call(this);
-        this.debug("[onLoadStart]");
+        //this.debug("[onLoadStart]");
       },
       onError: error => {
         this.props.onError.call(this);
         this.onError(error);
-        this.debug("[onLoadStart]", { error });
+        //this.debug("[onLoadStart]", { error });
       },
       onLoadEnd: data => {
         const { base64Image } = data;
@@ -235,7 +235,7 @@ class ProfilePicture extends Component {
         this.setState(state);
 
         this.processFile(base64Image);
-        this.debug("[onLoadEnd]", { data });
+        //this.debug("[onLoadEnd]", { data });
       }
     });
   }
@@ -246,12 +246,12 @@ class ProfilePicture extends Component {
       maxImageSize: this.props.maxImageSize,
       onLoad: data => {
         this.onImageDataLoaded(file, data);
-        this.debug("[onLoad]", { data });
+        //this.debug("[onLoad]", { data });
       },
       onError: error => {
         this.props.onError.call(this);
         this.onError(error);
-        this.debug("[onError]", { error });
+        //this.debug("[onError]", { error });
       }
     });
   }
@@ -285,7 +285,7 @@ class ProfilePicture extends Component {
     state.status = Status.LOADED;
     this.setState(state, this.renderImage.bind(this));
     this.props.onImageLoaded.call(this, { data: loadedData });
-    this.debug("[onImageLoaded]", { data: loadedData });
+    //this.debug("[onImageLoaded]", { data: loadedData });
   }
 
   scaleImage(zoom) {
@@ -307,7 +307,7 @@ class ProfilePicture extends Component {
       zoom
     };
     this.setState(state, this.renderImage.bind(this));
-    this.debug("[scaleImage]", { zoom, data: state.imageData });
+    //this.debug("[scaleImage]", { zoom, data: state.imageData });
   }
 
   renderImage() {
@@ -349,7 +349,7 @@ class ProfilePicture extends Component {
       data: { ...this.state.imageData }
     });
 
-    this.debug("[scalrenderImageeImage]", {
+    //this.debug("[scalrenderImageeImage]", {
       data: { ...this.state.imagesData }
     });
   }
